@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Twiiiter: {{ logged_in_user.name }} {% endblock %}
+{% block content %}
+{% include "components/navbar.html" %}
+<div class="container">
+    <div class="row my-3 justify-content-center px-0 mx-0">
+        <div class="col-12 col-lg-6 px-0 px-0">
+            {% include "components/users.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

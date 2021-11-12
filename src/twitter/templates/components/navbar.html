@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='twitter.svg')}}" alt="Twitter" class="img-fluid logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="/gallery">Gallery</a>
+                </li>
+                <li class="nav-item text-center">
+                    <a class="nav-link" href="/people">People</a>
+                </li>
+                <li class="nav-item text-center d-lg-none">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item text-center d-lg-none">
+                    <hr class="dropdown-divider">
+                </li>
+                <li class="nav-item text-center d-lg-none">
+                    <a class="nav-link" href="/auth/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group dropstart d-none d-lg-block">
+            <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ logged_in_user.picture }}" alt="profile picture" class="img-fluid rounded-circle user-icon">
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+  </nav>

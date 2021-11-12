@@ -1,0 +1,72 @@
+<!-- This is a content of a list-group -->
+{% for tweet in tweets %}
+    <li class="list-group-item p-0">
+        <div class="card" style="border: none;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <div class="d-flex align-items-center">
+                        {% if tweet.uid == logged_in_user.uid %} 
+                        <a href="/profile" role="button" style="text-decoration: none; color: black;" class="d-flex align-items-center ">
+                            <img src="{{ tweet.user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon mx-1"> 
+                            <span class="fs-6 mx-1">{{ tweet.user.name }}</span>
+                        </a>
+                        <span id="timestamp{{ tweet.tid }}" class="fs-6 fw-light text-muted mx-1">@ </span>
+                        <span class="bagde bg-primary fs-6 rounded-pill px-2">You</span>
+                        <div class="btn-group dropstart ms-auto">
+                            <a href="#" role="button" id="dropdownTwiiiteLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{{ url_for('static', filename='expand_circle_down_black_24dp.svg')}}" alt="dropdown icon" class="img-fluid">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownTwiiiteLink">
+                                <li><a href="/tweets/{{ tweet.tid }}" class="dropdown-item">Edit</a></li>
+                                <li>
+                                    <form method="post" action="/tweets/{{ tweet.tid }}" style="display: inline">
+                                        <input type="hidden" name="_redirect" value="{{ request.path }}" class="btn btn-primary">
+                                        <input type="hidden" name="_method" value="DELETE" class="btn btn-primary">
+                                        <button type="submit" class="dropdown-item">Delete</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <a href="/users/{{ tweet.user.uid }}/profile" role="button" style="text-decoration: none; color: black;" class="d-flex align-items-center ">
+                            <img src="{{ tweet.user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon mx-1"> 
+                            <span class="fs-6 mx-1">{{ tweet.user.name }}</span>
+                        </a>
+                        <span id="timestamp{{ tweet.tid }}" class="fs-6 fw-light text-muted mx-1">@</span>
+                        {% if tweet.uid|string in logged_in_user.following_uids %}<span class="bagde rounded-pill bg-info fs-6 px-2">Following</span>{% endif %}
+                        {% endif %}
+                    </div>
+                </h5>
+                <p class="card-text tweet-text">{{ tweet.tweet_text }}</p>
+                {% if tweet.image %}
+                <div class="text-center" role="button", data-bs-target="#image{{ tweet.tid }}" data-bs-toggle="modal">
+                    <img src="{{ tweet.image }}" alt="image" class="fluid rounded tweet-image">
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="image{{ tweet.tid }}" tabindex="-1" aria-labelledby="image" aria-hidden="true">
+                    <div class="modal-dialog modal-xl text-center">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{ tweet.image }}" alt="image" class="fluid rounded tweet-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}
+            </div>
+        </div>
+    </li>
+    <script>
+        var timestampSpan = document.getElementById("timestamp{{ tweet.tid }}");
+        var timestamp = new Date(Number("{{ (tweet.timestamp * 1000) }}"));
+        var options = {  
+            year: "numeric", month: "short",  
+            day: "numeric", hour: "2-digit", minute: "2-digit"  
+        };  
+        timestampSpan.appendChild(document.createTextNode(`${timestamp.toLocaleTimeString("en-US", options)}`));
+    </script>
+{% endfor %}

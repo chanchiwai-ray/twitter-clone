@@ -1,0 +1,31 @@
+version: "3"
+
+services: 
+    app:
+        build: .
+        ports:
+            - 80:80
+        env_file: 
+            - .env
+        depends_on: 
+            - redis
+    redis:
+        image: redis:latest
+        command: redis-server --appendonly yes
+        volumes: 
+            - dbdata:/data
+        expose: 
+            - 6379
+    # note btw, image will not be loaded properly
+    minio:
+        image: minio/minio:latest
+        command: server /data --console-address ":9001"
+        volumes: 
+            - imagedata:/data
+        expose: 
+            - 9000
+            - 9001
+
+volumes: 
+    dbdata:
+    imagedata:

@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-header">Followers</div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            {% for user in followers %}
+            <li class="list-group-item d-flex align-items-center">
+                <a href="/users/{{ user.uid }}/profile" role="button" style="text-decoration: none; color: black;" class="d-flex align-items-center ">
+                    <img src="{{ user.picture }}" alt="user icon" class="img-fiuld rounded-circle user-icon m-1">
+                    <span class="fs-6 m-1">{{ user.name }}</span>
+                </a>
+                <div class="ms-auto">
+                    {% if not user.is_following %}
+                    <form action="/users/{{ user.uid }}/following" method="post" style="display: inline" >
+                        <input type="hidden" name="_redirect" value="{{ request.path }}" class="btn btn-primary">
+                        <input type="hidden" name="_method" value="follow">
+                        <button type="submit" class="btn btn-success btn-sm">Follow</button>
+                    </form>
+                    {% else %}
+                    <span class="badge bg-success">Followed</span>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="card">
+    <form method="POST" action="/tweets/{{ old_form['tid'] }}" enctype="multipart/form-data">
+        <h5 class="card-header">
+            Editing Tweet
+        </h5>
+        <div class="card-body">
+                <div class="mb-3">
+                    <textarea class="form-control" name="tweet_text" id="tweet_text" rows="3" value="{{ request.form.tweet_text }}" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <input class="form-control form-control-sm" name="tweet_image" id="tweet_image" accept="image/png, image/gif, image/jpeg" type="file">
+                </div>
+        </div>
+        <div class="card-footer text-end">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" id="_redirect" name="_redirect" value="/">
+            <button type="submit" class="btn btn-primary" onclick="document.getElementById('_redirect').value=document.referrer;">Save</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
+        </div>
+    </form>
+</div>
+<script>
+    const textArea = document.getElementById("tweet_text");
+    textArea.value = `{{ old_form.tweet_text }}`;
+</script>

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Twiiiter: {{ logged_in_user.name }} {% endblock %}
+{% block content %}
+{% include "components/navbar.html" %}
+<div class="container">
+    <div class="row my-3 justify-content-center px-0 mx-0">
+        <div class="col-12 col-lg-8 px-0 px-0">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for tweet in tweets %}
+            {% if tweet.image %}
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <div class="text-center" role="button", data-bs-target="#image{{ tweet.tid }}" data-bs-toggle="modal">
+                      <img src="{{ tweet.image }}" alt="image" class="fluid rounded tweet-image">
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="image{{ tweet.tid }}" tabindex="-1" aria-labelledby="image" aria-hidden="true">
+                      <div class="modal-dialog modal-xl text-center">
+                          <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="card">
+                                    <img src="{{ tweet.image }}" alt="image" class="fluid rounded tweet-image card-img-top">
+                                    <div class="card-body">
+                                        <div>
+                                            <img src="{{ tweet.user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon me-1"> 
+                                            <span class="fs-6 text-muted ms-1">{{ tweet.user.name }}</span>
+                                        </div>
+                                        <p class="card-text tweet-text text-start">{{ tweet.tweet_text }}</p>
+                                    </div>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                {% if tweet.uid == logged_in_user.uid %} 
+                <a href="/profile" role="button" style="text-decoration: none; color: black;" class="d-flex align-items-center ">
+                    <img src="{{ tweet.user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon me-1"> 
+                    <span class="fs-6 text-muted ms-1">{{ tweet.user.name }}</span>
+                </a>
+                {% else %}
+                <a href="/users/{{ tweet.user.uid }}/profile" role="button" style="text-decoration: none; color: black;" class="d-flex align-items-center ">
+                    <img src="{{ tweet.user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon me-1"> 
+                    <span class="fs-6 text-muted ms-1">{{ tweet.user.name }}</span>
+                </a>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

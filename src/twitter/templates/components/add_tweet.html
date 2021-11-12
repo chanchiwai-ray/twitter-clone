@@ -1,0 +1,33 @@
+<!-- Button trigger modal -->
+<div class="d-flex align-items-center py-3" style="width: 100%;">
+    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-decoration: none; color: black; width: 100%;" class="d-flex align-items-center ">
+        <img src="{{ logged_in_user.picture }}" alt="user picture" class="img-fluid rounded-circle user-icon mx-1"> 
+        <span class="fs-6 fw-light text-muted mx-1">What's on your mind?</span>
+    </a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="/tweets" enctype="multipart/form-data" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">What's on your mind?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="tweet_text" id="tweet_text" rows="3" value="{{ request.form['tweet_text'] }}" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control form-control-sm" name="tweet_image" id="tweet_image" accept="image/png, image/gif, image/jpeg" type="file">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Tweet</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

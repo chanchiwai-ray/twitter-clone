@@ -1,0 +1,22 @@
+# Secret files
+client_secret.json
+.envrc
+.env
+
+# Auto generated file / directories
+__pycache__
+*.pyc
+.DS_Store
+/dbdata
+*.egg-info
+push_to_aws.sh
+
+# Local .terraform directories
+**/.terraform/*
+
+# Dependency lock file
+*.terraform.lock.hcl
+
+# .tfstate files
+*.tfstate
+*.tfstate.*

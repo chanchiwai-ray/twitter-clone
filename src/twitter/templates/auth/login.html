@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Login or signup{% endblock %}
+{% block content %}
+<div class="form-login-container ">
+    <div class="form-login">
+        <h1 class="h2 fw-normal mb-3">Choose one of the method(s) to log in or sign up</h1>
+            <a class="btn btn-outline-primary mt-3" href="/auth/oauth2/login" role="button">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img src="{{ url_for('static', filename='google_logo.svg')}}" class="me-3" alt="google-logo">
+                    <span>Log in or sign up with Google</span>
+                </div>
+            </a>
+    </div>
+</div>
+{% endblock %}

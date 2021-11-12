@@ -1,0 +1,35 @@
+<div class="card" style="border: none;">
+    <div class="card-body">
+        <h5 class="card-title text-center">
+            {% if logged_in_user.uid == user.uid %}
+            <img src="{{ logged_in_user.picture }}" alt="profile picture" class="img-fluid rounded-circle profile-picture my-3">
+            <p>{{ logged_in_user.name }}</p>
+            {% else %}
+            <img src="{{ user.picture }}" alt="profile picture" class="img-fluid rounded-circle profile-picture my-3">
+            <p>{{ user.name }}</p>
+            <form action="/users/{{ user.uid }}/following" method="post" style="display: inline" >
+                <input type="hidden" name="_redirect" value="{{ request.path }}" class="btn btn-primary">
+                {% if logged_in_user.following %}
+                <input type="hidden" name="_method" value="unfollow">
+                <button type="submit" class="btn btn-danger btn-sm">unfollow</button>
+                {% else %}
+                <input type="hidden" name="_method" value="follow">
+                <button type="submit" class="btn btn-success btn-sm">follow</button>
+                {% endif %}
+            </form>
+            {% endif %}
+        </h5>
+    </div>
+    <div class="card-footer p-0 m-0">
+        <ul class="list-group list-group-horizontal text-center">
+            <li class="list-group-item list-group-item-success w-100" style="border: none">
+                <p class="fs-3 mb-0">{{ user.num_of_following }}</p>
+                <p class="fs-6 text-muted">Following</p>
+            </li>
+            <li class="list-group-item list-group-item-info w-100" style="border: none;">
+                <p class="fs-3 mb-0">{{ user.num_of_followers }}</p>
+                <p class="fs-6 text-muted">Followers</p>
+            </li>
+          </ul>
+    </div>
+</div>
