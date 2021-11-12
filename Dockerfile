@@ -1,6 +1,6 @@
 FROM python:3.9.6-slim
-COPY . /Twiiiter/
-WORKDIR /Twiiiter
+COPY . /Twitter/
+WORKDIR /Twitter
 RUN pip3 install poetry==1.1.7
 RUN poetry install
 EXPOSE 80

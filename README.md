@@ -1,6 +1,6 @@
-# Twiiiter 
+# Minimalist Twitter Clone
 
-This is a Twitter clone called Twiiiter.
+A minialist clone of Twitter.
 
 ## Required Environment Variables
 
